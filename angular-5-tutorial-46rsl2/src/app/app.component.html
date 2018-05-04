@@ -1,0 +1,77 @@
+<div class="container text-center">
+
+    
+    <h3>Trending</h3>
+
+   <a  class="btn btn-primary add-repo text-right" (click)="showForm = !showForm">
+      <i class="glyphicon glyphicon-plus">Add</i>
+    </a>
+  <div class="repos-container text-left" *ngIf="repos.length > 0 && !showForm">
+
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let repo of repos">
+        <div *ngIf="!repo.isEditMode">  
+          <i class="glyphicon glyphicon-remove pull-right text-danger padding" (click)="deleteRepo(repo)"></i>
+          <a [href]="repo.html_url" target="_blank">{{repo.name}}</a>
+          <i class="glyphicon glyphicon-edit text-primary pull-right" (click)="setEditItem(repo)"></i>
+          <div class="repo-meta">
+            <p class="repo-desc">{{repo.description}}</p>
+          <span>
+            <i class="glyphicon glyphicon-star"></i>
+            {{repo.stargazers_count}}
+          </span>
+
+          <span>
+            <i class="glyphicon glyphicon-heart"></i>
+            {{repo.forks_count}}
+          </span>
+
+          <span>
+            <i class="glyphicon glyphicon-stop" [style.color]="getColor(repo)"></i>
+            {{repo.language}}
+          </span>
+          </div>
+          <div>
+          </div>
+        </div>
+
+        <div *ngIf="repo.isEditMode" class="text-left">
+          <form>
+            <div class="input-group">
+              <label for="">Name</label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="selectedRepo.name" />
+            </div>
+<div class="input-group">
+  <label for="">Description</label>
+  <input type="text" class="form-control" name="description" [(ngModel)]="selectedRepo.description"
+   /></div>
+  <div>
+    <input type="submit" value="Update" class="btn btn-success" (click)="editRepo(repo)">
+    <input type="submit" value="Cancel" class="btn btn-danger" (click)="repo.isEditMode = false">
+  </div>
+          </form>
+        </div>
+      </li>
+    </ul>
+    
+  </div>
+
+  <div *ngIf="showForm" class="text-left">
+    <form (ngSubmit)="addRepo()">
+      <div class="input-group">
+        <label for="">Repo Name</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="repo.name"/></div>
+<div class="input-group">
+  <label for="" class="text-left">Description</label>
+  <input type="text" class="form-control" name="description" [(ngModel)]="repo.description"/></div>
+<div class="input-group">
+  <label for="">Language</label>
+  <select name="" id="" class="form-control" name="language" [(ngModel)]="repo.language">
+    <option [value]="language" *ngFor="let language of languages">{{language}}</option>
+  </select>
+</div>
+<hr>
+  <button type="button" class="btn btn-success" value="Save" (click)="addRepo()">Save</button>
+    </form>
+  </div>
+</div>

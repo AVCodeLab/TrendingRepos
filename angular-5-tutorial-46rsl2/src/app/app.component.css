@@ -1,0 +1,16 @@
+.list-group-item, .list-group-item a {
+  color: black;
+  
+}
+
+.list-group-item a {
+  padding-left: 0;
+  color: blue;
+}
+
+
+.glyphicon-remove, 
+.glyphicon-edit {
+  cursor: pointer;
+  margin-right: 5px;
+}
